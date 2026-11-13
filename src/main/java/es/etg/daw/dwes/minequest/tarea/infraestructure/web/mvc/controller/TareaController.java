@@ -1,23 +1,29 @@
 package es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.etg.daw.dwes.minequest.tarea.application.command.CreateTareaCommand;
 import es.etg.daw.dwes.minequest.tarea.application.service.CreateTareaService;
+import es.etg.daw.dwes.minequest.tarea.application.service.FindTareaService;
 import es.etg.daw.dwes.minequest.tarea.domain.model.Tarea;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.mapper.TareaMapper;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.dto.TareaRequest;
+import es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.dto.TareaResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/tareas") // URL será /tareas
+@RequestMapping("/tareas")
 @RequiredArgsConstructor
 public class TareaController {
 
   private final CreateTareaService createTareaService;
+  private final FindTareaService findTareaService;
 
   @PostMapping
   @ResponseBody
@@ -43,6 +49,12 @@ public class TareaController {
         </html>
         """.formatted(tarea.getId(), tarea.getNombre(), tarea.getDescripcion(),
         tarea.getTipo(), tarea.getPrioridad(), tarea.getCreatedAt());
+  }
+
+  @GetMapping 
+  @ResponseBody 
+  public List<TareaResponse> allTarea() {
+    return findTareaService.findAll().stream().map(TareaMapper::toResponse).toList();
   }
 
 }
