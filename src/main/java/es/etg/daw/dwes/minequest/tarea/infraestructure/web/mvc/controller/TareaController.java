@@ -2,14 +2,18 @@ package es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.etg.daw.dwes.minequest.tarea.application.command.CreateTareaCommand;
 import es.etg.daw.dwes.minequest.tarea.application.service.CreateTareaService;
+import es.etg.daw.dwes.minequest.tarea.application.service.DeleteTareaService;
 import es.etg.daw.dwes.minequest.tarea.application.service.FindTareaService;
 import es.etg.daw.dwes.minequest.tarea.domain.model.Tarea;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.mapper.TareaMapper;
@@ -24,6 +28,7 @@ public class TareaController {
 
   private final CreateTareaService createTareaService;
   private final FindTareaService findTareaService;
+  private final DeleteTareaService deleteTareaService;
 
   @PostMapping
   @ResponseBody
@@ -55,6 +60,12 @@ public class TareaController {
   @ResponseBody 
   public List<TareaResponse> allTarea() {
     return findTareaService.findAll().stream().map(TareaMapper::toResponse).toList();
+  }
+
+  @DeleteMapping ("/{id}")
+  public ResponseEntity<?> deleteTarea(@PathVariable int id){
+    deleteTareaService.delete(id);
+    return ResponseEntity.noContent().build();
   }
 
 }

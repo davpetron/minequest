@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import es.etg.daw.dwes.minequest.tarea.application.service.CreateTareaService;
+import es.etg.daw.dwes.minequest.tarea.application.service.DeleteTareaService;
 import es.etg.daw.dwes.minequest.tarea.application.service.FindTareaService;
 import es.etg.daw.dwes.minequest.tarea.application.usecase.CreateTareaUseCase;
+import es.etg.daw.dwes.minequest.tarea.application.usecase.DeleteTareaUseCase;
 import es.etg.daw.dwes.minequest.tarea.application.usecase.FindTareaUseCase;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +33,16 @@ public class TareaConfig {
     @Bean 
     public FindTareaService findTareaService() {
         return new FindTareaService(findTareaUseCase());
+    }
+
+    @Bean 
+    public DeleteTareaUseCase deleteTareaUseCase() {
+        return new DeleteTareaUseCase();
+    }
+
+    @Bean 
+    public DeleteTareaService deleteTareaService() {
+        return new DeleteTareaService(deleteTareaUseCase());
     }
 
 }
