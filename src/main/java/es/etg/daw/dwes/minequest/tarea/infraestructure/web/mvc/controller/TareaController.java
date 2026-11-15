@@ -74,6 +74,7 @@ public class TareaController {
   }
 
   @PutMapping ("/{id}")
+  @ResponseBody 
   public TareaResponse editTarea(@PathVariable int id, @RequestBody TareaRequest tareaRequest) {
     EditTareaCommand comando = TareaMapper.toCommand(id, tareaRequest);
     Tarea tarea = editTareaService.update(comando);

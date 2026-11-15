@@ -11,15 +11,18 @@ import es.etg.daw.dwes.minequest.tarea.application.usecase.CreateTareaUseCase;
 import es.etg.daw.dwes.minequest.tarea.application.usecase.DeleteTareaUseCase;
 import es.etg.daw.dwes.minequest.tarea.application.usecase.EditTareaUseCase;
 import es.etg.daw.dwes.minequest.tarea.application.usecase.FindTareaUseCase;
+import es.etg.daw.dwes.minequest.tarea.domain.repository.TareaRepository;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class TareaConfig {
 
+    private final TareaRepository tareaRepository;
+
     @Bean
     public CreateTareaUseCase createTareaUseCase() {
-        return new CreateTareaUseCase();
+        return new CreateTareaUseCase(tareaRepository);
     }
 
     @Bean
@@ -49,7 +52,7 @@ public class TareaConfig {
 
     @Bean 
     public EditTareaUseCase editTareaUseCase() {
-        return new EditTareaUseCase();
+        return new EditTareaUseCase(tareaRepository);
     }
 
     @Bean

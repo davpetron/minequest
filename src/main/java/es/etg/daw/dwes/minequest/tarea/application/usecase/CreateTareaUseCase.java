@@ -4,8 +4,13 @@ import java.time.LocalDateTime;
 
 import es.etg.daw.dwes.minequest.tarea.application.command.CreateTareaCommand;
 import es.etg.daw.dwes.minequest.tarea.domain.model.Tarea;
+import es.etg.daw.dwes.minequest.tarea.domain.repository.TareaRepository;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class CreateTareaUseCase {
+
+    private final TareaRepository tareaRepository;
 
     public Tarea create(CreateTareaCommand comando) {
 
@@ -16,7 +21,7 @@ public class CreateTareaUseCase {
                 .prioridad(comando.prioridad())
                 .createdAt(LocalDateTime.now()).build();
 
-        return tarea;
+        return tareaRepository.save(tarea);
     }
 
 }
