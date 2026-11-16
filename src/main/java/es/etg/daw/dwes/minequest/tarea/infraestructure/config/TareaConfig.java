@@ -32,7 +32,7 @@ public class TareaConfig {
 
     @Bean 
     public FindTareaUseCase findTareaUseCase() {
-        return new FindTareaUseCase();
+        return new FindTareaUseCase(tareaRepository);
     }
 
     @Bean 
@@ -42,7 +42,7 @@ public class TareaConfig {
 
     @Bean 
     public DeleteTareaUseCase deleteTareaUseCase() {
-        return new DeleteTareaUseCase();
+        return new DeleteTareaUseCase(tareaRepository, findTareaUseCase());
     }
 
     @Bean 
@@ -52,7 +52,7 @@ public class TareaConfig {
 
     @Bean 
     public EditTareaUseCase editTareaUseCase() {
-        return new EditTareaUseCase(tareaRepository);
+        return new EditTareaUseCase(tareaRepository, findTareaUseCase());
     }
 
     @Bean

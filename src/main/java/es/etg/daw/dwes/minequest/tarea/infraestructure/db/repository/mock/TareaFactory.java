@@ -11,9 +11,9 @@ public class TareaFactory {
     public static final Map<Integer, Tarea> getDemoData(){
         Map<Integer, Tarea> datos = new LinkedHashMap<>();
 
-        datos.put(0, new Tarea(0, "Tarea1","descripcion1","Construccion", 3, LocalDateTime.now()));
-        datos.put(1, new Tarea(1, "Tarea2","descripcion2","Mineria", 5, LocalDateTime.now()));
-        datos.put(2, new Tarea(2, "Tarea3","descripcion3","Granjas", 1, LocalDateTime.now()));
+        datos.put(1, new Tarea(1, "Levantar las paredes del castillo", "Muros de piedra de 5 bloques de alto", "Construcción", 4, LocalDateTime.now()));
+        datos.put(2, new Tarea(2, "Conseguir diamantes", "Bajar a la capa -58 y minar al menos 10", "Minería", 5, LocalDateTime.now()));
+        datos.put(3, new Tarea(3, "Granja de trigo", "Granja de 9x9 junto a la base con agua en el centro", "Granjas", 2, LocalDateTime.now()));
 
         return datos;
     }

@@ -1,20 +1,33 @@
 package es.etg.daw.dwes.minequest.tarea.application.usecase;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import es.etg.daw.dwes.minequest.tarea.domain.error.TareaNotFoundException;
 import es.etg.daw.dwes.minequest.tarea.domain.model.Tarea;
+import es.etg.daw.dwes.minequest.tarea.domain.repository.TareaRepository;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor 
 public class FindTareaUseCase {
+
+    private final TareaRepository tareaRepository;
     
     public List<Tarea> findAll() {
-        
-        List<Tarea> lista =  new ArrayList<>();
-        lista.add(new Tarea(1, "Levantar las paredes del castillo", "Muros de piedra de 5 bloques de alto", "Construcción", 4, LocalDateTime.now()));
-        lista.add(new Tarea(2, "Conseguir diamantes", "Bajar a la capa -58 y minar al menos 10", "Minería", 5, LocalDateTime.now()));
-        lista.add(new Tarea(3, "Granja de trigo", "Granja de 9x9 junto a la base con agua en el centro", "Granjas", 2, LocalDateTime.now()));
+        List<Tarea> tareas = tareaRepository.getAll();
 
-        return lista;
+        if (tareas.isEmpty())
+            throw new TareaNotFoundException();
+
+        return tareas;
+    }
+
+    public Tarea findById(int id) {
+        Optional<Tarea> tareaOpt = tareaRepository.getById(id);
+
+        if (tareaOpt.isEmpty()) 
+            throw new TareaNotFoundException(id);
+        
+        return tareaOpt.get();
     }
 }

@@ -49,7 +49,7 @@ public class TareaRepositoryMockImpl implements TareaRepository {
     }
 
     @Override
-    public void deteteById(Integer id) {
+    public void deleteById(Integer id) {
         tareas.remove(id);
     }
 
