@@ -1,26 +1,23 @@
 package es.etg.daw.dwes.minequest.tarea.infraestructure.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
 import es.etg.daw.dwes.minequest.tarea.application.command.CreateTareaCommand;
 import es.etg.daw.dwes.minequest.tarea.application.command.EditTareaCommand;
 import es.etg.daw.dwes.minequest.tarea.domain.model.Tarea;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.dto.TareaRequest;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.dto.TareaResponse;
 
-public class TareaMapper {
+@Mapper(componentModel = "spring")
+public interface TareaMapper {
 
-    public static CreateTareaCommand toCommand(TareaRequest request) {
-        return new CreateTareaCommand(request.nombre(),
-                request.descripcion(), request.tipo(),
-                request.prioridad());
-    }
+    CreateTareaCommand toCommand(TareaRequest request);
 
-    public static TareaResponse toResponse(Tarea tarea) {
-        return new TareaResponse(tarea.getId(), tarea.getNombre(),
-                tarea.getDescripcion(), tarea.getTipo(),
-                tarea.getPrioridad(), tarea.getCreatedAt());
-    }
+    TareaResponse toResponse(Tarea tarea);
 
-    public static EditTareaCommand toCommand(int id, TareaRequest request) {
-        return new EditTareaCommand(id, request.descripcion(), request.prioridad());
-    }
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "request.descripcion", target = "descripcion")
+    @Mapping(source = "request.prioridad", target = "prioridad")
+    EditTareaCommand toCommand(int id, TareaRequest request);
 }

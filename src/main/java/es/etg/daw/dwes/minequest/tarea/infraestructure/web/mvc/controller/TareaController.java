@@ -34,11 +34,12 @@ public class TareaController {
   private final FindTareaService findTareaService;
   private final DeleteTareaService deleteTareaService;
   private final EditTareaService editTareaService;
+  private final TareaMapper tareaMapper;
 
   @PostMapping
   @ResponseBody
   public String createTarea(TareaRequest request) {
-    CreateTareaCommand comando = TareaMapper.toCommand(request);
+    CreateTareaCommand comando = tareaMapper.toCommand(request);
 
     Tarea tarea = createTareaService.createTarea(comando);
 
@@ -64,7 +65,7 @@ public class TareaController {
   @GetMapping 
   @ResponseBody 
   public List<TareaResponse> allTarea() {
-    return findTareaService.findAll().stream().map(TareaMapper::toResponse).toList();
+    return findTareaService.findAll().stream().map(tareaMapper::toResponse).toList();
   }
 
   @DeleteMapping ("/{id}")
@@ -76,9 +77,9 @@ public class TareaController {
   @PutMapping ("/{id}")
   @ResponseBody 
   public TareaResponse editTarea(@PathVariable int id, @RequestBody TareaRequest tareaRequest) {
-    EditTareaCommand comando = TareaMapper.toCommand(id, tareaRequest);
+    EditTareaCommand comando = tareaMapper.toCommand(id, tareaRequest);
     Tarea tarea = editTareaService.update(comando);
-    return TareaMapper.toResponse(tarea);
+    return tareaMapper.toResponse(tarea);
   }
 
 }
