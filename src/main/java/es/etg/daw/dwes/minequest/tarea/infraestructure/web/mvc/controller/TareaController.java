@@ -23,6 +23,7 @@ import es.etg.daw.dwes.minequest.tarea.domain.model.Tarea;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.mapper.TareaMapper;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.dto.TareaRequest;
 import es.etg.daw.dwes.minequest.tarea.infraestructure.web.mvc.dto.TareaResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -38,7 +39,7 @@ public class TareaController {
 
   @PostMapping
   @ResponseBody
-  public String createTarea(TareaRequest request) {
+  public String createTarea(@Valid TareaRequest request) {
     CreateTareaCommand comando = tareaMapper.toCommand(request);
 
     Tarea tarea = createTareaService.createTarea(comando);
@@ -76,7 +77,7 @@ public class TareaController {
 
   @PutMapping ("/{id}")
   @ResponseBody 
-  public TareaResponse editTarea(@PathVariable int id, @RequestBody TareaRequest tareaRequest) {
+  public TareaResponse editTarea(@PathVariable int id, @Valid @RequestBody TareaRequest tareaRequest) {
     EditTareaCommand comando = tareaMapper.toCommand(id, tareaRequest);
     Tarea tarea = editTareaService.update(comando);
     return tareaMapper.toResponse(tarea);
