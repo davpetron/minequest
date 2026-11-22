@@ -15,9 +15,11 @@ public class EditTareaUseCase {
 
         Tarea tareaExistente = findTareaUseCase.findById(command.id());
 
-        tareaExistente.setDescripcion(command.descripcion());
-        tareaExistente.setPrioridad(command.prioridad());
-
+    tareaExistente.setNombre(command.nombre());
+    tareaExistente.setDescripcion(command.descripcion());
+    tareaExistente.setTipo(command.tipo());
+    tareaExistente.setPrioridad(command.prioridad());
+    
         return tareaRepository.save(tareaExistente);
     }
 

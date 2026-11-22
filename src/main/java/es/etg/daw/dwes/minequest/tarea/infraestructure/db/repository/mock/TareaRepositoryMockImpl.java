@@ -58,5 +58,12 @@ public class TareaRepositoryMockImpl implements TareaRepository {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getByName'");
     }
+
+    @Override
+    public List<Tarea> getByPrioridad(int prioridad) {
+        return tareas.values().stream()
+                .filter(t -> t.getPrioridad() == prioridad)
+                .toList();
+    }
     
 }

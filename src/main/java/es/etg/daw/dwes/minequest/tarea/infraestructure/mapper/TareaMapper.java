@@ -15,9 +15,12 @@ public interface TareaMapper {
     CreateTareaCommand toCommand(TareaRequest request);
 
     TareaResponse toResponse(Tarea tarea);
-
+        
     @Mapping(source = "id", target = "id")
+    @Mapping(source = "request.nombre", target = "nombre")
     @Mapping(source = "request.descripcion", target = "descripcion")
+    @Mapping(source = "request.tipo", target = "tipo")
     @Mapping(source = "request.prioridad", target = "prioridad")
     EditTareaCommand toCommand(int id, TareaRequest request);
+    
 }

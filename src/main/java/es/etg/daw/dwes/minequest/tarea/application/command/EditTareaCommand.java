@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 public class EditTareaCommand {
     
     private int id;
+    private String nombre;
     private String descripcion;
+    private String tipo;
     private int prioridad;
+
 }

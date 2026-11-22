@@ -1,4 +1,4 @@
-# MineQuest
+![Banner MineQuest](doc/img/banner-minequest.jpg)
 
 **MineQuest** es una aplicación desarrollada como parte del examen práctico de la asignatura de Entorno Servidor.
 

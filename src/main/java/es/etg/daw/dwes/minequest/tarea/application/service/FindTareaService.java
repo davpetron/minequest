@@ -17,4 +17,8 @@ public class FindTareaService {
     public List<Tarea> findAll() {
         return findTareaUseCase.findAll();
     }
+
+    public List<Tarea> findByPrioridad(int prioridad) {
+        return findTareaUseCase.findByPrioridad(prioridad);
+    }
 }
