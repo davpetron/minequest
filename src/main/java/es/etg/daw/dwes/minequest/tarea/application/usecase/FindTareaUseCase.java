@@ -30,4 +30,13 @@ public class FindTareaUseCase {
         
         return tareaOpt.get();
     }
+
+    public List<Tarea> findByPrioridad(int prioridad) {
+        List<Tarea> tareas = tareaRepository.getByPrioridad(prioridad);
+
+        if (tareas.isEmpty())
+            throw new TareaNotFoundException("prioridad", prioridad);
+
+        return tareas;
+    }
 }

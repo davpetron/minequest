@@ -11,13 +11,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import es.etg.daw.dwes.minequest.tarea.domain.error.EntityNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 400 - Errores de validación (@Valid)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> validationHandler(MethodArgumentNotValidException ex) {
         String msg = ex.getBindingResult().getAllErrors().stream()
@@ -27,27 +28,37 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, msg);
     }
 
-    // 400 - Argumentos ilegales y JSON mal formado
     @ExceptionHandler({ IllegalArgumentException.class, HttpMessageNotReadableException.class })
     public ResponseEntity<String> badRequestHandler(Exception ex) {
         return build(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    // 404 - Tarea (o cualquier entidad) no encontrada
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<String> typeMismatchHandler(MethodArgumentTypeMismatchException ex) {
+        return build(HttpStatus.BAD_REQUEST, "El parámetro %s debe ser un número".formatted(ex.getName()));
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> notFoundHandler(EntityNotFoundException ex) {
         return build(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    // 500 - NullPointer
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> nullPointerHandler(NullPointerException ex) {
         return build(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
     }
 
-    // 500 - Cualquier otra excepción no recogida arriba (no filtramos detalles internos)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> genericHandler(Exception ex) {
+        if (ex instanceof ErrorResponse er) {
+            HttpStatus status = HttpStatus.valueOf(er.getStatusCode().value());
+            String msg = switch (status) {
+                case NOT_FOUND -> "La ruta solicitada no existe";
+                case METHOD_NOT_ALLOWED -> "Operación no permitida en esta ruta";
+                default -> "Petición no válida";
+            };
+            return build(status, msg);
+        }
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno del servidor");
     }
 

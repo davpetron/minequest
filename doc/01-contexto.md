@@ -2,46 +2,47 @@
 
 ## 1.1. Problema que se pretende resolver
 
-En Minecraft, los jugadores pueden llevar a cabo numerosas actividades, como construir estructuras, conseguir materiales, explorar el mundo, crear granjas o desarrollar estructuras de redstone.
+En Minecraft, los jugadores pueden llevar a cabo numerosas actividades: construir estructuras, conseguir materiales, explorar el mundo, crear granjas o desarrollar mecanismos de redstone.
 
-Cuando un jugador tiene varios objetivos pendientes, puede resultar complicado organizarlos y recordar todos los pasos que necesita realizar para completarlos.
+Cuando un jugador tiene varios objetivos pendientes, resulta complicado organizarlos y recordar qué queda por hacer y qué es más importante. El problema crece en un servidor compartido entre amigos, donde varias personas trabajan a la vez: es habitual que se repitan tareas o que otras se queden sin hacer.
 
-MineQuest surge como una propuesta para facilitar esta organización, permitiendo registrar las tareas que el jugador quiere realizar y consultar la información de cada una de ellas.
+MineQuest surge para facilitar esta organización, tanto para quien juega solo como para grupos de amigos: permite registrar las tareas, clasificarlas y consultarlas según su importancia.
 
 ## 1.2. Aplicaciones y alternativas existentes
 
-Actualmente, los jugadores pueden organizar sus objetivos mediante herramientas genéricas de gestión de tareas, aplicaciones de notas o anotaciones realizadas fuera del propio juego.
+Actualmente, los jugadores organizan sus objetivos con herramientas genéricas de gestión de tareas, aplicaciones de notas, mensajes en grupos de chat o anotaciones fuera del propio juego.
 
-Sin embargo, estas herramientas no están necesariamente orientadas a las actividades específicas de Minecraft.
+Estas herramientas no están orientadas a las actividades específicas de Minecraft, por lo que no permiten clasificar las tareas según el tipo de trabajo que suponen dentro del juego.
 
-MineQuest plantea una alternativa centrada en este entorno, incorporando categorías relacionadas con las actividades habituales del juego, como Construcción, Minería, Recolección, Granjas, Redstone, Exploración, Decoración y Combate.
+MineQuest plantea una alternativa centrada en este entorno, con categorías propias de las actividades habituales del juego: Construcción, Minería, Recolección, Granjas, Redstone, Exploración, Decoración y Combate.
 
-## 1.3. Nuestra propuesta de solución
+## 1.3. Propuesta de solución
 
-MineQuest es una aplicación destinada a organizar y gestionar las tareas que los jugadores quieren realizar en sus mundos de Minecraft.
+MineQuest es una aplicación web destinada a organizar y gestionar las tareas que los jugadores quieren realizar en Minecraft, ya sea en su propio mundo o en un servidor compartido.
 
-La aplicación permite crear nuevas tareas, consultar las existentes, modificar su información y eliminarlas cuando ya no sean necesarias.
+La aplicación permite crear nuevas tareas, consultar las existentes (todas o filtradas por prioridad), modificar su información y eliminarlas cuando ya no son necesarias.
 
 Cada tarea contiene los siguientes datos:
 
-- **Nombre:** identifica la tarea.
-- **Descripción:** proporciona información adicional sobre lo que se quiere realizar.
-- **Tipo:** clasifica la tarea según su categoría.
-- **Prioridad:** indica la importancia de la tarea.
-- **Fecha de creación:** registra cuándo se creó.
-
-De esta forma, MineQuest busca ofrecer una herramienta sencilla y adaptada a las necesidades de organización de los jugadores de Minecraft.
+| Dato | Descripción | Reglas |
+|---|---|---|
+| **Nombre** | Identifica la tarea. | Obligatorio, máximo 100 caracteres. |
+| **Descripción** | Información adicional sobre lo que se quiere realizar. | Opcional, máximo 255 caracteres. |
+| **Tipo** | Categoría de la tarea. | Obligatorio, uno de los ocho tipos admitidos. |
+| **Prioridad** | Importancia de la tarea. | Número entre 1 y 5. |
+| **Fecha de creación** | Momento en que se registró la tarea. | Se asigna automáticamente. |
 
 ## 1.4. Casos de uso
 
-El actor principal de la aplicación es el jugador, que interactúa con MineQuest para gestionar sus tareas.
+El actor principal de la aplicación es el jugador, que juega solo o en grupo e interactúa con MineQuest para gestionar sus tareas.
 
 | Actor | Caso de uso | Descripción |
 |---|---|---|
-| Jugador | Consultar tareas | Permite obtener el listado de tareas registradas. |
-| Jugador | Crear tarea | Permite registrar una nueva tarea con sus datos. |
-| Jugador | Modificar tarea | Permite actualizar la información de una tarea existente. |
-| Jugador | Eliminar tarea | Permite eliminar una tarea registrada. |
+| Jugador | Consultar tareas | Obtiene el listado de todas las tareas registradas. |
+| Jugador | Consultar tareas por prioridad | Obtiene solo las tareas que tienen una prioridad concreta. |
+| Jugador | Crear tarea | Registra una nueva tarea con sus datos. |
+| Jugador | Modificar tarea | Actualiza la información de una tarea existente. |
+| Jugador | Eliminar tarea | Elimina una tarea registrada. |
 
 ## 1.5. Requisitos
 
@@ -50,9 +51,12 @@ El actor principal de la aplicación es el jugador, que interactúa con MineQues
 | Código | Requisito |
 |---|---|
 | RF01 | La aplicación debe permitir consultar el listado de tareas. |
-| RF02 | La aplicación debe permitir crear nuevas tareas. |
-| RF03 | La aplicación debe permitir modificar tareas existentes. |
-| RF04 | La aplicación debe permitir eliminar tareas. |
+| RF02 | La aplicación debe permitir consultar las tareas de una prioridad determinada. |
+| RF03 | La aplicación debe permitir crear nuevas tareas. |
+| RF04 | La aplicación debe permitir modificar tareas existentes. |
+| RF05 | La aplicación debe permitir eliminar tareas. |
+| RF06 | La aplicación debe validar los datos de entrada: nombre y tipo obligatorios, tipo dentro de los ocho admitidos y prioridad entre 1 y 5. |
+| RF07 | La aplicación debe informar de los errores con un mensaje claro y el código HTTP adecuado (400, 404 o 500). |
 
 ### Requisitos no funcionales
 
@@ -60,8 +64,22 @@ El actor principal de la aplicación es el jugador, que interactúa con MineQues
 |---|---|
 | RNF01 | El código debe mantener una organización clara y separada por responsabilidades. |
 | RNF02 | La arquitectura debe facilitar el mantenimiento y la ampliación de la aplicación. |
-| RNF03 | La aplicación debe utilizar tecnologías adecuadas para el desarrollo de aplicaciones web. |
+| RNF03 | Los mensajes de validación deben estar centralizados en un único fichero, separados del código. |
+| RNF04 | Los errores no deben mostrar al usuario detalles internos de la aplicación. |
+
+## 1.6. Alcance
+
+Esta versión se centra en la gestión de tareas, con los datos almacenados en memoria.
+
+Como ampliaciones futuras se contemplan:
+
+- **Varios servidores:** cada grupo crea su propio servidor en la aplicación, y una misma persona puede pertenecer a varios con un rol distinto en cada uno.
+- **Estados de las tareas:** bloqueada, disponible, en curso, en revisión y hecha, con desbloqueo automático de las tareas que dependen de otra.
+- **Progreso:** cada tarea tiene una lista de objetivos y el porcentaje completado se calcula automáticamente.
+- **Materiales:** registro de los materiales necesarios y aportados, con un margen de sobra configurable.
+- **Horarios:** cuadrícula semanal para indicar cuándo puede jugar cada miembro y ver las franjas en las que coinciden.
+- **Persistencia en una base de datos.**
 
 ---
 
-[Índice](../README.md) | [Siguiente: Diseño ](02-diseno.md)
+[Índice](../README.md) | [Siguiente: Diseño](02-diseno.md)

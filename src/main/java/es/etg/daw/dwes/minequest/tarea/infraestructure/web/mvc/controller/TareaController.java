@@ -69,6 +69,12 @@ public class TareaController {
     return findTareaService.findAll().stream().map(tareaMapper::toResponse).toList();
   }
 
+  @GetMapping("/prioridad/{prioridad}")
+  @ResponseBody
+  public List<TareaResponse> tareasPorPrioridad(@PathVariable int prioridad) {
+      return findTareaService.findByPrioridad(prioridad).stream().map(tareaMapper::toResponse).toList();
+  }
+
   @DeleteMapping ("/{id}")
   public ResponseEntity<?> deleteTarea(@PathVariable int id){
     deleteTareaService.delete(id);

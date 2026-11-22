@@ -28,7 +28,7 @@ El proyecto también incluye el Maven Wrapper, que permite utilizar Maven median
 
 ### 3.1.3. Entorno de desarrollo
 
-Para desarrollar la aplicación se utiliza **Visual Studio Code** como entorno de desarrollo.
+Para desarrollar la aplicación se utiliza **Visual Studio Code** como entorno de desarrollo, sobre una máquina virtual con **Debian 13**. Las pruebas se realizan desde la terminal con el comando **curl** y desde el navegador.
 
 ### 3.1.4. Control de versiones
 
@@ -50,6 +50,8 @@ El proyecto contempla dos slices principales:
 ### 3.1.6. Recursos web
 
 La aplicación incluye un formulario HTML estático para facilitar la creación de tareas. Este recurso se encuentra dentro de `src/main/resources/static/` y se sirve desde la propia aplicación.
+
+En `src/main/resources/` se encuentra también el fichero `messages.properties`, que contiene los mensajes personalizados de las validaciones.
 
 ### 3.1.7. Documentación
 La documentación del proyecto se realiza mediante ficheros Markdown (.md), organizados dentro de la carpeta doc/.
