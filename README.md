@@ -1,8 +1,8 @@
 ![Banner MineQuest](doc/img/banner-minequest.jpg)
 
-**MineQuest** es una aplicación desarrollada como parte del examen práctico de la asignatura de Entorno Servidor.
+**MineQuest** es una aplicación web desarrollada como proyecto de la asignatura de **Desarrollo Web en Entorno Servidor**, del segundo curso del Ciclo Formativo de Grado Superior de Desarrollo de Aplicaciones Web (DAW).
 
-El proyecto tiene como objetivo facilitar la organización y gestión de tareas de Minecraft, permitiendo a los jugadores planificar objetivos y llevar un seguimiento de las actividades que quieren realizar en sus mundos.
+El proyecto tiene como objetivo facilitar la organización de las tareas de Minecraft, tanto para jugadores que juegan solos como para grupos de amigos que comparten un servidor, permitiendo registrar los objetivos que quieren realizar y llevar un seguimiento de ellos.
 
 - **Versión:** 1.0.0
 - **Integrantes:**
@@ -12,54 +12,56 @@ El proyecto tiene como objetivo facilitar la organización y gestión de tareas 
 
 ## Sobre el proyecto
 
+La aplicación se organiza mediante ***Vertical Slicing***, separando el código por funcionalidades en dos slices:
 
-La aplicación se organiza siguiendo una arquitectura basada en funcionalidades o ***Vertical Slicing***, separando el código en dos slices principales:
+- **`tarea`:** agrupa los elementos relacionados con la gestión de tareas.
+- **`common`:** contiene los elementos compartidos por las distintas funcionalidades, como el manejo global de errores.
 
-- **tarea:** contiene la funcionalidad relacionada con la gestión de tareas.
-- **common:** agrupa los elementos compartidos que pueden utilizarse en distintas funcionalidades de la aplicación.
+Dentro de cada slice se aplica ***Clean Architecture***, que separa el código en tres capas con responsabilidades distintas: `domain`, `application` e `infraestructure`.
 
-En cada uno de estos slices se ha aplicado ***Clean Architecture*** con el fin de separar tres capas con distintas responsabilidades: `domain`, `application` e `infraestructure`.
-
-Con este desarrollo se garantiza la escalabilidad del proyecto de forma progresiva, permitiendo añadir funcionalidades nuevas sin comprometer el funcionamiento de las ya existentes.
+Esta organización permite ampliar el proyecto de forma progresiva, añadiendo nuevas funcionalidades sin modificar las ya existentes.
 
 ## Funcionalidades
 
-Actualmente, la aplicación contempla las siguientes operaciones para gestionar tareas:
+La aplicación permite gestionar tareas mediante las siguientes operaciones:
 
-| Método HTTP | Operación | Ruta |
+| Método HTTP | Ruta | Operación |
 |---|---|---|
-| GET | Consultar tareas | `/tareas` |
-| POST | Crear una tarea | `/tareas` |
-| PUT | Modificar una tarea | `/tareas/{id}` |
-| DELETE | Eliminar una tarea | `/tareas/{id}` |
+| GET | `/tareas` | Consultar todas las tareas |
+| GET | `/tareas/prioridad/{prioridad}` | Consultar las tareas de una prioridad |
+| POST | `/tareas` | Crear una tarea |
+| PUT | `/tareas/{id}` | Modificar una tarea |
+| DELETE | `/tareas/{id}` | Eliminar una tarea |
 
-Además, incluye: 
-- Validación de datos en la creación y modificación, con una validación personalizada.
-- Manejo global de errores, que devuelve el código HTTP correspondiente en cada caso (400, 404 y 500).
+Además, incluye:
+
+- **Validación de datos** en la creación y la modificación, con una validación personalizada para el tipo de tarea.
+- **Manejo global de errores**, que devuelve el código HTTP adecuado en cada caso (400, 404 y 500).
 
 ## Ejecución rápida
-Se requiere Java 17 y Maven.
+
+Requisitos: Java 17 o superior y Maven.
 
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
-Una vez iniciada, la aplicación está disponible en http://localhost:8080/tareas.
+Una vez iniciada, la aplicación está disponible en `http://localhost:8080/tareas`.
 
-Más detalles en Ejecución y pruebas y en el Manual de usuario.
+Más detalles en [Ejecución y pruebas](doc/04-ejecucion-y-pruebas.md) y en el [Manual de usuario](doc/07-manual-de-usuario.md).
 
 ## Documentación
 
-La documentación del proyecto se encuentra en la carpeta `doc/`, organizada en distintos archivos Markdown para facilitar su consulta.
+La carpeta [`doc/`](doc/) recoge la documentación completa del proyecto:
 
 | Apartado | Documento |
 |---|---|
-| 1. Contexto de la aplicación | [01-contexto.md](doc/01-contexto.md) |
-| 2. Diseño | [02-diseno.md](doc/02-diseno.md) |
-| 3. Implementación | [03-implementacion.md](doc/03-implementacion.md) |
-| 4. Ejecución y pruebas | [04-ejecucion-y-pruebas.md](doc/04-ejecucion-y-pruebas.md) |
-| 5. Herramientas y versiones | [05-herramientas-y-versiones.md](doc/05-herramientas-y-versiones.md) |
-| 6. Elementos destacables | [06-elementos-destacables.md](doc/06-elementos-destacables.md) |
-| 7. Manual de usuario | [07-manual-de-usuario.md](doc/07-manual-de-usuario.md) |
-| 8. Conclusiones | [08-conclusiones.md](doc/08-conclusiones.md) |
-| 9. Referencias y bibliografía | [09-referencias-y-bibliografia.md](doc/09-referencias-y-bibliografia.md) |
+| Contexto de la aplicación | [01 - Contexto](doc/01-contexto.md) |
+| Diseño | [02 - Diseño](doc/02-diseno.md) |
+| Implementación | [03 - Implementación](doc/03-implementacion.md) |
+| Ejecución y pruebas | [04 - Ejecución y pruebas](doc/04-ejecucion-y-pruebas.md) |
+| Herramientas y versiones | [05 - Herramientas y versiones](doc/05-herramientas-y-versiones.md) |
+| Elementos destacables | [06 - Elementos destacables](doc/06-elementos-destacables.md) |
+| Manual de usuario | [07 - Manual de usuario](doc/07-manual-de-usuario.md) |
+| Conclusiones | [08 - Conclusiones](doc/08-conclusiones.md) |
+| Referencias y bibliografía | [09 - Referencias y bibliografía](doc/09-referencias-y-bibliografia.md) |

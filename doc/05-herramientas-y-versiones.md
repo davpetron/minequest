@@ -6,7 +6,8 @@ En este apartado recogemos las herramientas y tecnologías utilizadas durante el
 
 | **Herramienta**          | **Versión** |
 | ------------------------ | ----------- |
-| Java                     | 17          |
+| Java (versión del proyecto) | 17       |
+| JDK (ejecución)          | 21.0.12     |
 | Spring Boot              | 4.1.2       |
 | MapStruct                | 1.6.3       |
 | Lombok                   | 1.18.32     |
@@ -16,16 +17,18 @@ En este apartado recogemos las herramientas y tecnologías utilizadas durante el
 
 | **Herramienta**    | **Versión** |
 | ------------------ | ----------- |
-| Apache Maven       | 3.9.9 |
+| Apache Maven (Maven Wrapper) | 3.10.0 |
 | Git                | 2.47.3 |
 | Visual Studio Code | 1.138.0 |
+| curl               | 8.14.1 |
+| Debian (máquina virtual) | 13 |
 
 ## 5.3. Otras herramientas
 
 - **GitHub:** plataforma utilizada para alojar el repositorio del proyecto y colaborar en su desarrollo.
 - **Gitflow:** metodología de trabajo utilizada para organizar las ramas y gestionar el desarrollo de nuevas funcionalidades.
-- **Navegador web:** utilizado para acceder a la aplicación durante las pruebas locales.
+- **Navegador web (Firefox):** utilizado para acceder a la aplicación durante las pruebas locales.
 
 ---
 
-[Anterior: Ejecución y pruebas](04-ejecucion-y-pruebas.md) | [Índice](../README.md) | [Siguiente: Elementos destacables ](06-elementos-destacables.md)
+[Anterior: Ejecución y pruebas](04-ejecucion-y-pruebas.md) | [Índice](../README.md) | [Siguiente: Elementos destacables](06-elementos-destacables.md)

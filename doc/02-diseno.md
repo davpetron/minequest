@@ -63,12 +63,16 @@ minequest/
     │       │       └── TareaRepositoryMockImpl.java
     │       ├── mapper/
     │       │   └── TareaMapper.java
-    │       └── web/mvc/
-    │           ├── controller/
-    │           │   └── TareaController.java
-    │           └── dto/
-    │               ├── TareaRequest.java
-    │               └── TareaResponse.java
+    │       └── web/
+    │           ├── mvc/
+    │           │   ├── controller/
+    │           │   │   └── TareaController.java
+    │           │   └── dto/
+    │           │       ├── TareaRequest.java
+    │           │       └── TareaResponse.java
+    │           └── validation/
+    │               ├── TipoTarea.java
+    │               └── TipoTareaValidator.java
     │
     └── common/
         └── infraestructure/
@@ -77,6 +81,8 @@ minequest/
                     ├── CustomResponse.java
                     └── GlobalExceptionHandler.java
 ```
+
+Además, en `src/main/resources/` se encuentran `application.properties`, `messages.properties` (mensajes de validación) y el formulario `static/formulario-crear-tarea.html`.
 
 Actualmente, los datos de las tareas se almacenan en memoria mediante una implementación mock del repositorio que utiliza un `LinkedHashMap`, por lo que no se emplea una base de datos externa.
 
@@ -89,11 +95,35 @@ Se han definido las siguientes clases:
 - **EntityNotFoundException:** excepción general para indicar que una entidad no ha sido encontrada.
 - **TareaNotFoundException:** especialización de la anterior para los casos en los que no se encuentra una tarea.
 
-Por ejemplo, cuando se intenta consultar una tarea mediante un identificador que no existe, se lanza una `TareaNotFoundException`.
+Por ejemplo, cuando se intenta modificar o eliminar una tarea mediante un identificador que no existe, se lanza una `TareaNotFoundException`.
 
-También se utiliza esta excepción cuando el listado de tareas está vacío.
+También se utiliza esta excepción cuando el listado de tareas está vacío y cuando no hay tareas con la prioridad indicada.
 
-## 2.4. Plan de pruebas
+Todas las excepciones se gestionan de forma global en la clase `GlobalExceptionHandler`, anotada con `@ControllerAdvice`, que devuelve una página de error con la fecha, el código HTTP y el mensaje:
+
+| Situación | Código | Mensaje |
+|---|---|---|
+| Datos no válidos | 400 | Los de `messages.properties` |
+| Parámetro de ruta que no es un número | 400 | "El parámetro id debe ser un número" |
+| Tarea no encontrada o prioridad sin tareas | 404 | "tarea con id 99 no encontrada", "No hay tareas con prioridad 1" |
+| Ruta que no existe | 404 | "La ruta solicitada no existe" |
+| Método no admitido | 405 | "Operación no permitida en esta ruta" |
+| Error no previsto | 500 | "Error interno del servidor" |
+
+## 2.4. Validación de datos
+
+Los datos de entrada se validan en el DTO `TareaRequest` mediante anotaciones, que se activan con `@Valid` en los métodos de crear y modificar del controlador:
+
+- **nombre:** obligatorio (`@NotBlank`) y de 100 caracteres como máximo (`@Size`).
+- **descripcion:** de 255 caracteres como máximo (`@Size`).
+- **tipo:** obligatorio (`@NotBlank`) y uno de los ocho tipos admitidos (`@TipoTarea`).
+- **prioridad:** entre 1 y 5 (`@Min` y `@Max`).
+
+`@TipoTarea` es una validación personalizada, implementada en `TipoTareaValidator`, ya que ninguna anotación estándar conoce los tipos de tarea de la aplicación.
+
+Los mensajes de error de las validaciones se definen en el fichero `messages.properties`.
+
+## 2.5. Plan de pruebas
 
 Las pruebas se realizan de forma manual, ejecutando la aplicación en local y utilizando el navegador y el comando `curl` desde la terminal.
 
@@ -106,11 +136,14 @@ El plan incluye tanto casos en los que la aplicación debe funcionar correctamen
 | P03 | Creación de una tarea | Formulario | Se crea la tarea y se muestran sus datos |
 | P04 | Listado tras crear | Navegador | La nueva tarea aparece en el listado |
 | P05 | Modificación de una tarea | curl | Código 200 y datos actualizados |
-| P06 | Eliminación de una tarea | curl | Código 204 |
-| P07 | Listado tras eliminar | Navegador | La tarea eliminada no aparece en el listado |
-| P08 | Consulta de una tarea inexistente | curl | Se gestiona la excepción de tarea no encontrada |
-| P09 | Modificación de una tarea inexistente | curl | Se gestiona la excepción de tarea no encontrada |
-| P10 | Eliminación de una tarea inexistente | curl | Se gestiona la excepción de tarea no encontrada |
+| P06 | Listado por prioridad | curl | Código 200 y solo las tareas con esa prioridad |
+| P07 | Eliminación de una tarea | curl | Código 204 |
+| P08 | Listado tras eliminar | Navegador | La tarea eliminada no aparece en el listado |
+| P09 | Validaciones estándar | curl | Código 400 con los errores de nombre y prioridad |
+| P10 | Validación personalizada del tipo | curl | Código 400 con el mensaje de tipo no válido |
+| P11 | Eliminación de una tarea inexistente | curl | Código 404 y mensaje de tarea no encontrada |
+| P12 | Listado por una prioridad sin tareas | curl | Código 404 y mensaje "No hay tareas con prioridad 1" |
+| P13 | Parámetro de ruta incorrecto | curl | Código 400 y mensaje "El parámetro id debe ser un número" |
 
 ---
 
