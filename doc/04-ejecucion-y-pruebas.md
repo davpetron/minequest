@@ -44,7 +44,7 @@ Las pruebas se ejecutan **en orden** y con la aplicación recién arrancada, por
 **Acción:** se arranca la aplicación desde la terminal.
 
 ```bash
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
 **Resultado esperado:** la consola muestra `Started MinequestApplication` y `Tomcat started on port 8080`.

@@ -54,7 +54,6 @@ public class GlobalExceptionHandler {
             HttpStatus status = HttpStatus.valueOf(er.getStatusCode().value());
             String msg = switch (status) {
                 case NOT_FOUND -> "La ruta solicitada no existe";
-                case METHOD_NOT_ALLOWED -> "Operación no permitida en esta ruta";
                 default -> "Petición no válida";
             };
             return build(status, msg);

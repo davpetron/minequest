@@ -107,7 +107,6 @@ Todas las excepciones se gestionan de forma global en la clase `GlobalExceptionH
 | Parámetro de ruta que no es un número | 400 | "El parámetro id debe ser un número" |
 | Tarea no encontrada o prioridad sin tareas | 404 | "tarea con id 99 no encontrada", "No hay tareas con prioridad 1" |
 | Ruta que no existe | 404 | "La ruta solicitada no existe" |
-| Método no admitido | 405 | "Operación no permitida en esta ruta" |
 | Error no previsto | 500 | "Error interno del servidor" |
 
 ## 2.4. Validación de datos

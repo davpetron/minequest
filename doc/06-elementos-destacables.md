@@ -28,7 +28,7 @@ Durante el desarrollo han surgido dificultades relacionadas con la organización
 
 También ha sido necesario comprender cómo integrar MapStruct y Lombok dentro de Maven, especialmente en lo relativo al procesamiento de anotaciones y la generación automática de código.
 
-Durante las pruebas se detectó que el manejador genérico de excepciones (`Exception.class`) convertía en un error 500 situaciones que no eran fallos del servidor, como una ruta que no existe (404), un método HTTP no admitido (405) o un identificador que no es un número (400). Se resolvió añadiendo un manejador específico para los parámetros con un tipo incorrecto y respetando, en el manejador genérico, el código HTTP que ya indican las excepciones propias de Spring.
+Durante las pruebas se detectó que el manejador genérico de excepciones (`Exception.class`) convertía en un error 500 situaciones que no eran fallos del servidor, como una ruta que no existe (404) o un identificador que no es un número (400). Se resolvió añadiendo un manejador específico para los parámetros con un tipo incorrecto y respetando, en el manejador genérico, el código HTTP que ya indican las excepciones propias de Spring.
 
 ---
 

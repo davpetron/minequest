@@ -43,7 +43,7 @@ Además, incluye:
 Requisitos: Java 17 o superior y Maven.
 
 ```bash
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
 Una vez iniciada, la aplicación está disponible en `http://localhost:8080/tareas`.
