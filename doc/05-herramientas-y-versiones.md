@@ -21,7 +21,6 @@ En este apartado recogemos las herramientas y tecnologías utilizadas durante el
 | Git                | 2.47.3 |
 | Visual Studio Code | 1.138.0 |
 | curl               | 8.14.1 |
-| Debian (máquina virtual) | 13 |
 
 ## 5.3. Otras herramientas
 

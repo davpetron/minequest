@@ -12,7 +12,7 @@
 Desde la raíz del proyecto se ejecuta:
 
 ```bash
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
 Cuando la aplicación está lista, en la consola aparece el mensaje `Started MinequestApplication`. Por defecto escucha en el puerto `8080`.
@@ -51,7 +51,7 @@ Las pruebas se ejecutan **en orden** y con la aplicación recién arrancada, por
 
 ![P01](img/pruebas/P01-arranque.png)
 
-**Resultado obtenido:** ✅ La aplicación arranca en el puerto 8080.
+**Resultado obtenido:** correcto, la aplicación arranca en el puerto 8080.
 
 ### P02 · Listar tareas
 
@@ -61,7 +61,7 @@ Las pruebas se ejecutan **en orden** y con la aplicación recién arrancada, por
 
 ![P02](img/pruebas/P02-listar.png)
 
-**Resultado obtenido:** ✅ Se muestran las tareas 1 ("Levantar las paredes del castillo"), 2 ("Conseguir diamantes") y 3 ("Granja de trigo").
+**Resultado obtenido:** correcto, se muestran las tareas 1 ("Levantar las paredes del castillo"), 2 ("Conseguir diamantes") y 3 ("Granja de trigo").
 
 ### P03 · Crear una tarea
 
@@ -78,7 +78,7 @@ Las pruebas se ejecutan **en orden** y con la aplicación recién arrancada, por
 
 ![P03](img/pruebas/P03-crear.png)
 
-**Resultado obtenido:** ✅ Se muestra "Tarea: 4 - Granja de hierro" con su descripción, tipo, prioridad y fecha de creación.
+**Resultado obtenido:** correcto, se muestra "Tarea: 4 - Granja de hierro" con su descripción, tipo, prioridad y fecha de creación.
 
 ### P04 · Listar tras crear
 
@@ -88,7 +88,7 @@ Las pruebas se ejecutan **en orden** y con la aplicación recién arrancada, por
 
 ![P04](img/pruebas/P04-listar-tras-crear.png)
 
-**Resultado obtenido:** ✅ Aparecen cuatro tareas. La última es "Granja de hierro" con id 4.
+**Resultado obtenido:** correcto, aparecen cuatro tareas. La última es "Granja de hierro" con id 4.
 
 ### P05 · Modificar una tarea
 
@@ -102,7 +102,7 @@ curl -i -X PUT http://localhost:8080/tareas/2 -H "Content-Type: application/json
 
 ![P05](img/pruebas/P05-modificar.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 200` y `{"id":2,"nombre":"Conseguir diamantes","descripcion":"Minar 20 diamantes","tipo":"Minería","prioridad":3,...}`.
+**Resultado obtenido:** correcto. `HTTP/1.1 200` y `{"id":2,"nombre":"Conseguir diamantes","descripcion":"Minar 20 diamantes","tipo":"Minería","prioridad":3,...}`.
 
 ### P06 · Listar por prioridad
 
@@ -116,7 +116,7 @@ curl -i http://localhost:8080/tareas/prioridad/4; echo
 
 ![P06](img/pruebas/P06-listar-prioridad.png)
 
-**Resultado obtenido:** ✅ Se devuelven la tarea 1 ("Levantar las paredes del castillo") y la 4 ("Granja de hierro"). La 2 ya no aparece, porque en P05 se le cambió la prioridad a 3.
+**Resultado obtenido:** correcto, se devuelven la tarea 1 ("Levantar las paredes del castillo") y la 4 ("Granja de hierro"). La 2 ya no aparece, porque en P05 se le cambió la prioridad a 3.
 
 ### P07 · Eliminar una tarea
 
@@ -130,7 +130,7 @@ curl -i -X DELETE http://localhost:8080/tareas/3; echo
 
 ![P07](img/pruebas/P07-eliminar.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 204`.
+**Resultado obtenido:** correcto, `HTTP/1.1 204`.
 
 ### P08 · Listar tras eliminar
 
@@ -140,7 +140,7 @@ curl -i -X DELETE http://localhost:8080/tareas/3; echo
 
 ![P08](img/pruebas/P08-listar-tras-eliminar.png)
 
-**Resultado obtenido:** ✅ Aparecen las tareas 1, 2 (con los datos modificados en P05) y 4. Los cambios se mantienen entre peticiones.
+**Resultado obtenido:** correcto, aparecen las tareas 1, 2 (con los datos modificados en P05) y 4. Los cambios se mantienen entre peticiones.
 
 ### P09 · Validaciones estándar
 
@@ -154,7 +154,7 @@ curl -i -X POST http://localhost:8080/tareas -d "nombre=" -d "tipo=Construcción
 
 ![P09](img/pruebas/P09-validaciones.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 400` y la página de error con el mensaje "prioridad: La prioridad no puede ser superior a 5; nombre: El nombre de la tarea no puede estar vacío". El orden de los errores puede variar.
+**Resultado obtenido:** correcto, `HTTP/1.1 400` y la página de error con el mensaje "prioridad: La prioridad no puede ser superior a 5; nombre: El nombre de la tarea no puede estar vacío". El orden de los errores puede variar.
 
 ### P10 · Validación personalizada (tipo de tarea)
 
@@ -182,7 +182,7 @@ curl -i -X DELETE http://localhost:8080/tareas/99; echo
 
 ![P11](img/pruebas/P11-tarea-inexistente.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 404` y "tarea con id 99 no encontrada".
+**Resultado obtenido:** correcto, `HTTP/1.1 404` y "tarea con id 99 no encontrada".
 
 ### P12 · Prioridad sin tareas
 
@@ -196,7 +196,7 @@ curl -i http://localhost:8080/tareas/prioridad/1; echo
 
 ![P12](img/pruebas/P12-prioridad-sin-tareas.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 404` y "No hay tareas con prioridad 1".
+**Resultado obtenido:** correcto, `HTTP/1.1 404` y "No hay tareas con prioridad 1".
 
 ### P13 · Parámetro de ruta incorrecto
 
@@ -210,18 +210,7 @@ curl -i -X DELETE http://localhost:8080/tareas/abc; echo
 
 ![P13](img/pruebas/P13-parametro-incorrecto.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 400` y "El parámetro id debe ser un número".
-
-## 4.4. Resumen
-
-| Funcionalidad | Pruebas | Resultado |
-|---|---|---|
-| Persistencia en memoria | P02, P04, P08 | ✅ |
-| Crear, modificar y eliminar | P03, P05, P07 | ✅ |
-| Listar por prioridad | P06, P12 | ✅ |
-| Validación de datos | P09 | ✅ |
-| Validación personalizada | P10 | ✅ |
-| Excepciones propias y manejo global de errores | P09 a P13 | ✅ |
+**Resultado obtenido:** correcto `HTTP/1.1 400` y "El parámetro id debe ser un número".
 
 ---
 

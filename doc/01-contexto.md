@@ -67,19 +67,6 @@ El actor principal de la aplicación es el jugador, que juega solo o en grupo e 
 | RNF03 | Los mensajes de validación deben estar centralizados en un único fichero, separados del código. |
 | RNF04 | Los errores no deben mostrar al usuario detalles internos de la aplicación. |
 
-## 1.6. Alcance
-
-Esta versión se centra en la gestión de tareas, con los datos almacenados en memoria.
-
-Como ampliaciones futuras se contemplan:
-
-- **Varios servidores:** cada grupo crea su propio servidor en la aplicación, y una misma persona puede pertenecer a varios con un rol distinto en cada uno.
-- **Estados de las tareas:** bloqueada, disponible, en curso, en revisión y hecha, con desbloqueo automático de las tareas que dependen de otra.
-- **Progreso:** cada tarea tiene una lista de objetivos y el porcentaje completado se calcula automáticamente.
-- **Materiales:** registro de los materiales necesarios y aportados, con un margen de sobra configurable.
-- **Horarios:** cuadrícula semanal para indicar cuándo puede jugar cada miembro y ver las franjas en las que coinciden.
-- **Persistencia en una base de datos.**
-
 ---
 
 [Índice](../README.md) | [Siguiente: Diseño](02-diseno.md)
