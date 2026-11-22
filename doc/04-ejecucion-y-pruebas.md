@@ -168,7 +168,7 @@ curl -i -X POST http://localhost:8080/tareas -d "nombre=Castillo" -d "tipo=Pesca
 
 ![P10](img/pruebas/P10-validacion-tipo.png)
 
-**Resultado obtenido:** ✅ `HTTP/1.1 400` y "tipo: El tipo no es válido (Construcción, Minería, Recolección, Granjas, Redstone, Exploración, Decoración o Combate)".
+**Resultado obtenido:** `HTTP/1.1 400` y "tipo: El tipo no es válido (Construcción, Minería, Recolección, Granjas, Redstone, Exploración, Decoración o Combate)".
 
 ### P11 · Tarea inexistente
 
